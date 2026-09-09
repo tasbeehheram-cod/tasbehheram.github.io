@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tasbeeh Heram — Graphic Designer</title>
+<meta name="description" content="Portfolio of Tasbeeh Heram, graphic designer specializing in social media design, branding and AI-generated visual content.">
+
+<!-- Fonts: Fraunces for expressive display type, Space Grotesk for clean UI/body text -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --ink:#210313;
+    --pink:#ef2f7b;
+    --pink-deep:#8c1354;
+    --blush:#ffdcea;
+    --cream:#fff3ee;
+    --peach:#ff8a5c;
+    --line: rgba(33,3,19,0.12);
+    --max: 1180px;
+    --radius: 6px;
+  }
+
+  *{margin:0; padding:0; box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
+    line-height:1.05;
+    font-weight:700;
+  }
+
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%; display:block;}
+  button{font-family:inherit; cursor:pointer;}
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  section{padding:120px 0;}
+
+  @media (max-width:720px){
+    section{padding:76px 0;}
+    .wrap{padding:0 22px;}
+  }
+
+  /* Focus visibility for accessibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--pink-deep);
+    outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important; scroll-behavior:auto !important;}
+  }
+
+  /* ============ NAV ============ */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(255,243,238,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    max-width:var(--max); margin:0 auto; padding:18px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .mark{
+    width:42px; height:42px; border-radius:50%;
+    background:var(--ink); color:var(--blush);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif; font-weight:700; font-size:16px;
+    flex-shrink:0;
+  }
+  .nav-links{display:flex; gap:34px; font-size:15px;}
+  .nav-links a{position:relative; padding:4px 0;}
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:2px;
+    background:var(--pink); transition:width .25s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    background:var(--ink); color:var(--cream);
+    padding:10px 20px; border-radius:999px; font-size:14px; font-weight:500;
+    transition:background .2s ease;
+  }
+  .nav-cta:hover{background:var(--pink-deep);}
+  .burger{display:none; flex-direction:column; gap:5px; background:none; border:none; padding:6px;}
+  .burger span{width:24px; height:2px; background:var(--ink); display:block;}
+
+  @media (max-width:860px){
+    .nav-links{
+      position:fixed; top:78px; right:0; left:0;
+      background:var(--cream); flex-direction:column; gap:0;
+      border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+      max-height:0; overflow:hidden; transition:max-height .3s ease;
+    }
+    .nav-links.open{max-height:400px;}
+    .nav-links a{padding:16px 32px; border-bottom:1px solid var(--line); width:100%;}
+    .nav-links a::after{display:none;}
+    .nav-cta{display:none;}
+    .burger{display:flex;}
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    padding-top:170px; padding-bottom:90px;
+    position:relative;
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:40px; align-items:center;
+  }
+  .hero-eyebrow{
+    font-size:14px; letter-spacing:.02em; color:var(--pink-deep); font-weight:600;
+    margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .hero-eyebrow .dot{width:8px; height:8px; border-radius:50%; background:var(--pink); flex-shrink:0;}
+  .hero h1{
+    font-size:clamp(48px, 7vw, 92px);
+    letter-spacing:-0.01em;
+  }
+  .hero h1 em{font-style:italic; font-weight:500; color:var(--pink-deep);}
+  .hero-sub{
+    margin-top:22px; font-size:19px; max-width:46ch; color:rgba(33,3,19,0.78);
+  }
+  .hero-cta{margin-top:36px; display:flex; gap:16px; flex-wrap:wrap;}
+  .btn{
+    padding:14px 26px; border-radius:999px; font-weight:500; font-size:15px;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn-solid{background:var(--pink); color:#fff;}
+  .btn-solid:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(239,47,123,0.35);}
+  .btn-outline{border:1.5px solid var(--ink); color:var(--ink);}
+  .btn-outline:hover{transform:translateY(-2px); background:var(--ink); color:var(--cream);}
+
+  .swatches{display:flex; gap:10px; margin-top:48px;}
+  .swatch{width:38px; height:38px; border-radius:8px;}
+
+  .hero-visual{position:relative;}
+  .hero-photo{
+    border-radius:14px; border:2px dashed var(--pink-deep);
+    background:linear-gradient(155deg, var(--blush), var(--cream));
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:10px; text-align:center; padding:24px; transform:rotate(3deg);
+    position:relative;
+  }
+  .hero-photo::before{
+    content:''; position:absolute; inset:0; border-radius:14px;
+    background:
+      linear-gradient(90deg, transparent 24px, var(--line) 24px, var(--line) 25px, transparent 25px);
+    opacity:.5; pointer-events:none;
+  }
+  .hero-photo svg{width:44px; height:44px; color:var(--pink-deep);}
+  .hero-photo span{font-size:13px; color:var(--pink-deep); max-width:20ch; font-weight:500;}
+  /* Real photo variant: solid border, natural size (no crop), no placeholder guide-lines */
+  img.hero-photo{
+    border-style:solid; padding:0; object-fit:contain; width:100%; height:auto;
+  }
+  img.hero-photo::before{content:none;}
+  .hero-tag{
+    position:absolute; bottom:-18px; left:-18px;
+    background:var(--ink); color:var(--cream);
+    padding:14px 18px; border-radius:12px; font-size:13px;
+    box-shadow:0 12px 30px rgba(33,3,19,0.25);
+    transform:rotate(-4deg);
+  }
+  .hero-tag strong{display:block; font-family:'Fraunces', serif; font-size:20px; font-weight:700;}
+
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr; padding-top:130px;}
+    .hero-visual{max-width:280px; margin:0 auto;}
+  }
+
+  /* ============ SECTION LABELS ============ */
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:24px; margin-bottom:56px; flex-wrap:wrap;
+  }
+  .section-head h2{font-size:clamp(32px, 4vw, 48px);}
+  .section-num{
+    font-family:'Fraunces', serif; font-style:italic; color:var(--pink-deep);
+    font-size:16px; font-weight:500;
+  }
+  .section-desc{max-width:42ch; color:rgba(33,3,19,0.65); font-size:15.5px;}
+
+  /* reveal-on-scroll (single orchestrated fade-up per section head) */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ============ ABOUT ============ */
+  .about{background:var(--blush); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:60px; align-items:start;}
+  .about-grid p{font-size:18px; color:rgba(33,3,19,0.82);}
+  .about-grid p + p{margin-top:18px;}
+
+  .stat-card{
+    background:var(--cream); border-radius:16px; padding:32px;
+    border:1px solid var(--line);
+  }
+  .stat-row{display:flex; justify-content:space-between; align-items:baseline; padding:16px 0; border-bottom:1px solid var(--line);}
+  .stat-row:last-child{border-bottom:none;}
+  .stat-row .num{font-family:'Fraunces', serif; font-size:26px; font-weight:700; color:var(--pink-deep);}
+  .stat-row .label{font-size:14px; color:rgba(33,3,19,0.6); text-align:right;}
+
+  @media (max-width:860px){ .about-grid{grid-template-columns:1fr;} }
+
+  /* ============ EXPERIENCE ============ */
+  .timeline{border-left:2px solid var(--line); padding-left:40px; margin-left:6px;}
+  .timeline-item{position:relative; padding-bottom:52px;}
+  .timeline-item:last-child{padding-bottom:0;}
+  .timeline-item::before{
+    content:''; position:absolute; left:-46px; top:4px;
+    width:12px; height:12px; border-radius:50%; background:var(--pink);
+    border:3px solid var(--cream); box-shadow:0 0 0 2px var(--pink);
+  }
+  .timeline-date{font-size:13px; font-weight:600; color:var(--pink-deep); letter-spacing:.02em;}
+  .timeline-role{font-family:'Fraunces', serif; font-size:26px; font-weight:700; margin-top:6px;}
+  .timeline-org{font-size:15px; color:rgba(33,3,19,0.6); margin-top:2px;}
+  .timeline-item ul{margin-top:14px; display:flex; flex-direction:column; gap:8px;}
+  .timeline-item li{font-size:15.5px; color:rgba(33,3,19,0.78); padding-left:18px; position:relative;}
+  .timeline-item li::before{content:'—'; position:absolute; left:0; color:var(--pink-deep);}
+
+  /* ============ SKILLS ============ */
+  .skills-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:24px;}
+  .skill-card{
+    background:var(--cream); border:1px solid var(--line); border-radius:16px; padding:28px;
+    position:relative; overflow:hidden;
+  }
+  .skill-card::before{
+    content:''; position:absolute; top:0; left:0; width:100%; height:6px;
+  }
+  .skill-card.s1::before{background:var(--pink);}
+  .skill-card.s2::before{background:var(--peach);}
+  .skill-card.s3::before{background:var(--pink-deep);}
+  .skill-card.s4::before{background:var(--ink);}
+  .skill-card h3{font-size:20px; margin-bottom:16px; margin-top:6px;}
+  .chips{display:flex; flex-wrap:wrap; gap:9px;}
+  .chip{
+    background:var(--blush); color:var(--pink-deep); font-size:13.5px; font-weight:500;
+    padding:8px 14px; border-radius:999px;
+  }
+  .skill-card.s4 .chip{background:var(--ink); color:var(--cream);}
+
+  @media (max-width:720px){ .skills-grid{grid-template-columns:1fr;} }
+
+  /* ============ WORK GALLERY (photos) ============ */
+  .work{background:var(--ink); color:var(--cream);}
+  .work .section-desc{color:rgba(255,243,238,0.62);}
+  .work .section-num{color:var(--peach);}
+  .gallery{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:18px;
+  }
+  .tile{
+    border-radius:12px; overflow:hidden; position:relative;
+    cursor:pointer; border:1px solid rgba(255,243,238,0.14);
+    background:rgba(255,243,238,0.04);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .tile img{width:100%; height:auto; display:block; object-fit:contain; transition:transform .5s ease;}
+  .tile:hover img{transform:scale(1.04);}
+  .tile-caption{
+    position:absolute; left:0; right:0; bottom:0; padding:16px;
+    background:linear-gradient(to top, rgba(33,3,19,0.88), transparent);
+    font-size:13.5px; font-weight:500;
+  }
+  .tile-caption span{display:block; font-size:11px; color:var(--peach); margin-bottom:3px; font-weight:600;}
+
+  @media (max-width:860px){ .gallery{grid-template-columns:repeat(2, 1fr);} }
+  @media (max-width:520px){ .gallery{grid-template-columns:1fr;} }
+
+  /* ============ REEL (video) ============ */
+  .reel-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:20px;}
+  .reel-grid .video-col{display:flex; flex-direction:column; gap:20px;}
+  .video-card{
+    position:relative; border-radius:14px; overflow:hidden;
+    border:1px solid var(--line); background:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .video-card video{width:100%; height:auto; max-height:520px; object-fit:contain; display:block; background:var(--ink);}
+  .video-card .video-label{
+    position:absolute; top:14px; left:14px; background:var(--ink); color:var(--cream);
+    font-size:11px; padding:5px 10px; border-radius:999px; font-weight:500; z-index:2;
+    pointer-events:none;
+  }
+
+  @media (max-width:860px){ .reel-grid{grid-template-columns:1fr;} }
+
+  /* ============ TRAINING ============ */
+  .training-list{display:flex; flex-direction:column;}
+  .training-row{
+    display:flex; justify-content:space-between; align-items:center; gap:20px;
+    padding:22px 0; border-bottom:1px solid var(--line); flex-wrap:wrap;
+  }
+  .training-row:first-child{border-top:1px solid var(--line);}
+  .training-title{font-family:'Fraunces', serif; font-size:19px; font-weight:600;}
+  .training-org{font-size:14px; color:rgba(33,3,19,0.6); margin-top:3px;}
+  .training-date{font-size:13.5px; font-weight:600; color:var(--pink-deep); white-space:nowrap;}
+
+  .future-tags{display:flex; gap:12px; margin-top:36px; flex-wrap:wrap;}
+  .future-tag{
+    border:1.5px dashed var(--pink-deep); color:var(--pink-deep); font-size:13.5px; font-weight:500;
+    padding:10px 16px; border-radius:999px;
+  }
+
+  /* ============ CONTACT / FOOTER ============ */
+  footer{background:var(--ink); color:var(--cream); padding:100px 0 40px;}
+  .contact-head h2{
+    font-size:clamp(38px, 6vw, 68px); max-width:14ch;
+  }
+  .contact-head span{color:var(--pink);}
+  .contact-links{
+    margin-top:48px; display:grid; grid-template-columns:repeat(2, 1fr); gap:16px 40px;
+  }
+  .contact-links a{
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+    padding:18px 0; border-bottom:1px solid rgba(255,243,238,0.16); font-size:16px;
+    transition:color .2s ease;
+  }
+  .contact-links a:hover{color:var(--peach);}
+  .contact-links .clabel{color:rgba(255,243,238,0.5); font-size:13px;}
+
+  .footer-bottom{
+    margin-top:80px; padding-top:24px; border-top:1px solid rgba(255,243,238,0.14);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-size:13px; color:rgba(255,243,238,0.5);
+  }
+
+  @media (max-width:640px){ .contact-links{grid-template-columns:1fr;} }
+
+  /* ============ LIGHTBOX MODAL ============ */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(33,3,19,0.88); z-index:200;
+    display:flex; align-items:center; justify-content:center; padding:32px;
+    opacity:0; pointer-events:none; transition:opacity .25s ease;
+  }
+  .modal-overlay.open{opacity:1; pointer-events:auto;}
+  .modal-box{
+    max-width:640px; width:100%; background:var(--cream); border-radius:16px;
+    overflow:hidden; transform:scale(.95); transition:transform .25s ease;
+  }
+  .modal-overlay.open .modal-box{transform:scale(1);}
+  .modal-box img{width:100%; height:auto; object-fit:contain; display:block;}
+  .modal-caption{padding:20px 24px;}
+  .modal-caption span{font-size:12px; color:var(--pink-deep); font-weight:600;}
+  .modal-caption h4{font-size:20px; margin-top:4px;}
+  .modal-close{
+    position:absolute; top:24px; right:24px; width:40px; height:40px; border-radius:50%;
+    background:var(--cream); border:none; display:flex; align-items:center; justify-content:center;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header>
+  <div class="nav">
+    <a href="#top" class="mark" aria-label="Tasbeeh Heram home">TH</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#reel">Reel</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+    <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<div id="top"></div>
+<section class="hero wrap">
+  <div>
+    <div class="hero-eyebrow"><span class="dot"></span>Egypt · Open to new projects</div>
+    <h1>Tasbeeh Heram — <em>graphic designer</em> shaping brands.</h1>
+    <p class="hero-sub">1.5 years designing social media content, brand identities and AI-driven visuals for agencies and independent clients — turning a brief into a consistent, memorable look.</p>
+    <div class="hero-cta">
+      <a href="#work" class="btn btn-solid">View my work</a>
+      <a href="mailto:totaheram@gamil.com" class="btn btn-outline">Say hello</a>
+    </div>
+    <div class="swatches" aria-hidden="true">
+      <div class="swatch" style="background:#ef2f7b"></div>
+      <div class="swatch" style="background:#8c1354"></div>
+      <div class="swatch" style="background:#ff8a5c"></div>
+      <div class="swatch" style="background:#ffdcea"></div>
+      <div class="swatch" style="background:#210313"></div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <img class="hero-photo" src="1785062941986.jpeg" alt="Tasbeeh Heram">
+    <div class="hero-tag"><strong>1.5+ yrs</strong>social &amp; brand design</div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="section-num">Profile</span>
+        <h2>About Tasbeeh</h2>
+      </div>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>Tasbeeh is a graphic designer with hands-on experience across social media design, creating visual content for a range of brands and campaigns. Her focus stays on visual consistency, brand identity and creative direction — turning a brief or reference into an engaging, on-brand design.</p>
+        <p>Beyond social content, she works across branding, motion graphics and AI-generated visuals, translating client requirements into clear, consistent visual solutions from strategy through to final delivery.</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-row"><span class="num">1.5+</span><span class="label">Years of design experience</span></div>
+        <div class="stat-row"><span class="num">+20</span><span class="label">Agencies &amp; freelance clients</span></div>
+        <div class="stat-row"><span class="num">3.35</span><span class="label">GPA · Media Arts &amp; Advertising</span></div>
+        <div class="stat-row"><span class="num">EG</span><span class="label">Based in Egypt · Arabic (native)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="section-num">Career</span>
+        <h2>Experience</h2>
+      </div>
+      <p class="section-desc">A quick look at where she's designed, in order.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">03/2026 — Present</div>
+        <h3 class="timeline-role">Freelance Graphic Designer</h3>
+        <div class="timeline-org">Independent</div>
+        <ul>
+          <li>Worked on projects from strategy and branding through to social media content.</li>
+          <li>Developed visual identities, creative directions and social media campaigns.</li>
+          <li>Translated client requirements into clear and consistent visual solutions.</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">12/2025 — Present</div>
+        <h3 class="timeline-role">Graphic Designer</h3>
+        <div class="timeline-org">Emperica Agency</div>
+        <ul>
+          <li>Designed social media content for different brands and campaigns.</li>
+          <li>Developed visual directions and creative concepts based on briefs.</li>
+          <li>Maintained brand consistency across social platforms and content formats.</li>
+          <li>Worked within a marketing team, connecting design with content and campaign direction.</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">06/2025 — 12/2025 · Remote</div>
+        <h3 class="timeline-role">Graphic Designer</h3>
+        <div class="timeline-org">MK Agency</div>
+        <ul>
+          <li>Created social media designs for different brands.</li>
+          <li>Worked on branding and visual communication.</li>
+          <li>Adapted designs to different content needs while following brand direction.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section class="about" id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="section-num">Toolkit</span>
+        <h2>Skills &amp; software</h2>
+      </div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card s1">
+        <h3>Design</h3>
+        <div class="chips">
+          <span class="chip">Social Media Design</span>
+          <span class="chip">Branding</span>
+          <span class="chip">Brand Identity</span>
+          <span class="chip">Creative Direction</span>
+          <span class="chip">Concept Development</span>
+          <span class="chip">Typography</span>
+          <span class="chip">Color Theory</span>
+          <span class="chip">Composition</span>
+          <span class="chip">Visual Hierarchy</span>
+        </div>
+      </div>
+      <div class="skill-card s2">
+        <h3>Marketing</h3>
+        <div class="chips">
+          <span class="chip">Brand Strategy</span>
+          <span class="chip">Social Media Content</span>
+          <span class="chip">Creative Campaigns</span>
+        </div>
+      </div>
+      <div class="skill-card s3">
+        <h3>Motion &amp; AI</h3>
+        <div class="chips">
+          <span class="chip">Motion Graphics</span>
+          <span class="chip">Animated Content</span>
+          <span class="chip">AI Image &amp; Video Creation</span>
+          <span class="chip">AI Character Design</span>
+        </div>
+      </div>
+      <div class="skill-card s4">
+        <h3>Software</h3>
+        <div class="chips">
+          <span class="chip">Photoshop</span>
+          <span class="chip">Illustrator</span>
+          <span class="chip">InDesign</span>
+          <span class="chip">After Effects</span>
+          <span class="chip">Premiere Pro</span>
+          <span class="chip">Canva</span>
+          <span class="chip">Figma</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORK GALLERY (photos) ============ -->
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="section-num">Selected work</span>
+        <h2>Recent projects</h2>
+      </div>
+      <p class="section-desc">Click any tile to preview a larger version.</p>
+    </div>
+
+    <div class="gallery" id="gallery">
+      <div class="tile" data-title="Ahlan Korea — Social Media Plan" data-cat="Social Media">
+        <img src="2.jpg" alt="Ahlan Korea social media plan">
+        <div class="tile-caption"><span>Social Media</span>Ahlan Korea — Social Media Plan</div>
+      </div>
+      <div class="tile" data-title="Dount — Brand Identity" data-cat="Branding">
+        <img src="Artboard 3.jpg" alt="Dount brand identity">
+        <div class="tile-caption"><span>Branding</span>Dount — Brand Identity</div>
+      </div>
+      <div class="tile" data-title="Secret — Social Media Plan" data-cat="Social Media">
+        <img src="3.jpg" alt="Secret social media plan">
+        <div class="tile-caption"><span>Social Media</span>Secret — Social Media Plan</div>
+      </div>
+      <div class="tile" data-title="Taby — Brand Identity" data-cat="Branding">
+        <img src="Artboard 4.jpg" alt="Taby brand identity">
+        <div class="tile-caption"><span>Branding</span>Taby — Brand Identity</div>
+      </div>
+      <div class="tile" data-title="Kedical — Social Media Plan" data-cat="Social Media">
+        <img src="تصميم بدون عنوان.jpg" alt="Kedical social media plan">
+        <div class="tile-caption"><span>Social Media</span>Kedical — Social Media Plan</div>
+      </div>
+      <div class="tile" data-title="Soknah — Brand Identity" data-cat="Branding">
+        <img src="Artboard 5.jpg" alt="Soknah brand identity">
+        <div class="tile-caption"><span>Branding</span>Soknah — Brand Identity</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REEL (video) ============ -->
+<section id="reel">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="section-num">Motion</span>
+        <h2>Reel &amp; video work</h2>
+      </div>
+      <p class="section-desc">A few motion and AI-generated pieces from recent projects.</p>
+    </div>
+
+    <div class="reel-grid">
+      <div class="video-card" id="mainVideo">
+        <div class="video-label">Skip Ad Motion</div>
+        <video controls preload="metadata" src="(Bulk 1) 2Faqs - Tasbeh.mp4"></video>
+      </div>
+
+      <div class="video-col">
+        <div class="video-card small">
+          <div class="video-label">CGI Video — AI Generation</div>
+          <video controls preload="metadata" src="3 final.mp4"></video>
+        </div>
+        <div class="video-card small">
+          <div class="video-label">AI Character</div>
+          <video controls preload="metadata" src="faroha 5.mp4"></video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRAINING & EDUCATION ============ -->
+<section class="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="section-num">Learning</span>
+        <h2>Training &amp; courses</h2>
+      </div>
+    </div>
+
+    <div class="training-list">
+      <div class="training-row">
+        <div><div class="training-title">Motion Graphics Summer Training</div><div class="training-org">NTI</div></div>
+        <div class="training-date">08/2026</div>
+      </div>
+      <div class="training-row">
+        <div><div class="training-title">Marketing Summer Training</div><div class="training-org">ITI · Benha</div></div>
+        <div class="training-date">07/2026</div>
+      </div>
+      <div class="training-row">
+        <div><div class="training-title">Brand Strategy</div><div class="training-org">Emperica Agency · Remote</div></div>
+        <div class="training-date">12/2025 — 02/2026</div>
+      </div>
+      <div class="training-row">
+        <div><div class="training-title">Branding, Content Creation &amp; Motion Graphics</div><div class="training-org">Creative Summer Camp · Benha</div></div>
+        <div class="training-date">06/2025</div>
+      </div>
+      <div class="training-row">
+        <div><div class="training-title">Summer Training Camp</div><div class="training-org">Bapetco · Cairo</div></div>
+        <div class="training-date">06/2025</div>
+      </div>
+      <div class="training-row">
+        <div><div class="training-title">Graphic Design Diploma</div><div class="training-org">Cairo</div></div>
+        <div class="training-date">06/2025 — 09/2025</div>
+      </div>
+      <div class="training-row">
+        <div><div class="training-title">Branding Workshop</div><div class="training-org">Online</div></div>
+        <div class="training-date">Completed</div>
+      </div>
+      <div class="training-row">
+        <div><div class="training-title">Media Arts &amp; Advertising</div><div class="training-org">Faculty of Applied Arts · GPA 3.35/4.00</div></div>
+        <div class="training-date">Expected 2027</div>
+      </div>
+    </div>
+
+    <div class="future-tags">
+      <span class="future-tag">Marketing Course — AUC · Planned</span>
+      <span class="future-tag">Branding Course — Adham Hossam · Starts mid-Sept 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT / FOOTER ============ -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-head reveal">
+      <span class="section-num" style="color:var(--peach)">Get in touch</span>
+      <h2>Let's design your <span>next campaign.</span></h2>
+    </div>
+
+    <div class="contact-links">
+      <a href="mailto:totaheram@gamil.com"><span>Email <span class="clabel">— usually replies within a day</span></span><span>totaheram@gamil.com</span></a>
+      <a href="tel:+201220076205"><span>Phone</span><span>01220076205</span></a>
+      <a href="https://www.linkedin.com/in/tasbeeh-heram-a00a5b344" target="_blank" rel="noopener">LinkedIn<span>View profile →</span></a>
+      <a href="https://canva.link/a4v04l0ug0ykwjg" target="_blank" rel="noopener">Canva Portfolio<span>View deck →</span></a>
+    </div>
+
+    <div class="footer-bottom">
+      <span>Tasbeeh Heram — Graphic Designer, Egypt</span>
+      <span id="year"></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ LIGHTBOX MODAL ============ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <img id="modalImg" src="" alt="">
+    <div class="modal-caption">
+      <span id="modalCat"></span>
+      <h4 id="modalTitle"></h4>
+    </div>
+  </div>
+  <button class="modal-close" id="modalClose" aria-label="Close preview">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#210313" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+</div>
+
+<script>
+  // ===== Mobile nav toggle =====
+  const burger = document.getElementById('burgerBtn');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    burger.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    burger.setAttribute('aria-expanded', false);
+  }));
+
+  // ===== Scroll reveal for section headers (one subtle entrance each) =====
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  revealEls.forEach(el => io.observe(el));
+
+  // ===== Gallery lightbox =====
+  const overlay = document.getElementById('modalOverlay');
+  const modalImg = document.getElementById('modalImg');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalCat = document.getElementById('modalCat');
+  const modalClose = document.getElementById('modalClose');
+
+  document.querySelectorAll('.tile').forEach(tile => {
+    tile.addEventListener('click', () => {
+      const img = tile.querySelector('img');
+      modalImg.src = img.src;
+      modalImg.alt = img.alt;
+      modalTitle.textContent = tile.dataset.title || '';
+      modalCat.textContent = tile.dataset.cat || '';
+      overlay.classList.add('open');
+    });
+  });
+
+  function closeModal(){ overlay.classList.remove('open'); }
+  modalClose.addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  // ===== Footer year =====
+  document.getElementById('year').textContent = '© ' + new Date().getFullYear() + ' Tasbeeh Heram';
+</script>
+
+</body>
+</html>
