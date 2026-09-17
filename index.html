@@ -5,12 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tasbeeh Heram — Graphic Designer</title>
 <meta name="description" content="Portfolio of Tasbeeh Heram, graphic designer specializing in social media design, branding and AI-generated visual content.">
-
-<!-- Fonts: Fraunces for expressive display type, Space Grotesk for clean UI/body text -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./css2" rel="stylesheet">
 <style>
   /* ============ TOKENS ============ */
   :root{
@@ -61,7 +58,6 @@
     .wrap{padding:0 22px;}
   }
 
-  /* Focus visibility for accessibility */
   a:focus-visible, button:focus-visible{
     outline:2px solid var(--pink-deep);
     outline-offset:3px;
@@ -149,9 +145,6 @@
   .btn-outline{border:1.5px solid var(--ink); color:var(--ink);}
   .btn-outline:hover{transform:translateY(-2px); background:var(--ink); color:var(--cream);}
 
-  .swatches{display:flex; gap:10px; margin-top:48px;}
-  .swatch{width:38px; height:38px; border-radius:8px;}
-
   .hero-visual{position:relative;}
   .hero-photo{
     border-radius:14px; border:2px dashed var(--pink-deep);
@@ -168,7 +161,6 @@
   }
   .hero-photo svg{width:44px; height:44px; color:var(--pink-deep);}
   .hero-photo span{font-size:13px; color:var(--pink-deep); max-width:20ch; font-weight:500;}
-  /* Real photo variant: solid border, natural size (no crop), no placeholder guide-lines */
   img.hero-photo{
     border-style:solid; padding:0; object-fit:contain; width:100%; height:auto;
   }
@@ -199,7 +191,6 @@
   }
   .section-desc{max-width:42ch; color:rgba(33,3,19,0.65); font-size:15.5px;}
 
-  /* reveal-on-scroll (single orchestrated fade-up per section head) */
   .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
   .reveal.in{opacity:1; transform:translateY(0);}
 
@@ -259,47 +250,71 @@
 
   @media (max-width:720px){ .skills-grid{grid-template-columns:1fr;} }
 
-  /* ============ WORK GALLERY (photos) ============ */
+  /* ============ WORK GALLERY (filterable) ============ */
   .work{background:var(--ink); color:var(--cream);}
   .work .section-desc{color:rgba(255,243,238,0.62);}
   .work .section-num{color:var(--peach);}
-  .gallery{
-    display:grid; grid-template-columns:repeat(3, 1fr); gap:18px;
+
+  .filter-tabs{
+    display:flex; flex-wrap:wrap; gap:12px; margin-bottom:44px;
   }
+  .filter-btn{
+    background:rgba(255,243,238,0.06); color:var(--cream);
+    border:1px solid rgba(255,243,238,0.22);
+    padding:11px 22px; border-radius:999px; font-size:14px; font-weight:500;
+    transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .filter-btn:hover{border-color:var(--peach);}
+  .filter-btn.active{background:var(--pink); color:#fff; border-color:var(--pink);}
+
+  /* Gallery: bigger, natural-looking tiles instead of a cramped fixed
+     3-column grid. auto-fill lets each tile keep a generous minimum
+     width and simply wrap to as many columns as fit. */
+  /* Gallery: every piece is shown in full, at its own natural
+     proportions — nothing is cropped and nothing needs a click. */
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:22px;
+    align-items:start;
+  }
+  /* Full Projects: only the two covers, side by side and larger. */
+  .gallery.layout-full-project{grid-template-columns:repeat(2, 1fr);}
+  @media (max-width:980px){ .gallery{grid-template-columns:repeat(2, 1fr);} }
+  @media (max-width:640px){
+    .gallery, .gallery.layout-full-project{grid-template-columns:1fr;}
+  }
+
   .tile{
-    border-radius:12px; overflow:hidden; position:relative;
+    border-radius:12px; position:relative;
     cursor:pointer; border:1px solid rgba(255,243,238,0.14);
     background:rgba(255,243,238,0.04);
-    display:flex; align-items:center; justify-content:center;
+    transition:transform .35s ease, box-shadow .35s ease;
   }
-  .tile img{width:100%; height:auto; display:block; object-fit:contain; transition:transform .5s ease;}
-  .tile:hover img{transform:scale(1.04);}
+  /* height:auto + no object-fit = the full image, uncropped. */
+  .tile img{
+    width:100%; height:auto; display:block;
+    border-radius:12px;
+  }
+  .tile:hover{transform:translateY(-4px); box-shadow:0 16px 36px rgba(0,0,0,0.35);}
+  .tile.tile-video{cursor:default;}
+  .tile-video video{
+    width:100%; height:auto; display:block;
+    border-radius:12px; background:#000;
+  }
   .tile-caption{
     position:absolute; left:0; right:0; bottom:0; padding:16px;
     background:linear-gradient(to top, rgba(33,3,19,0.88), transparent);
     font-size:13.5px; font-weight:500;
+    pointer-events:none;
   }
   .tile-caption span{display:block; font-size:11px; color:var(--peach); margin-bottom:3px; font-weight:600;}
 
-  @media (max-width:860px){ .gallery{grid-template-columns:repeat(2, 1fr);} }
-  @media (max-width:520px){ .gallery{grid-template-columns:1fr;} }
-
-  /* ============ REEL (video) ============ */
-  .reel-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:20px;}
-  .reel-grid .video-col{display:flex; flex-direction:column; gap:20px;}
-  .video-card{
-    position:relative; border-radius:14px; overflow:hidden;
-    border:1px solid var(--line); background:var(--ink);
-    display:flex; align-items:center; justify-content:center;
+  /* Caption sits under the image on full projects so it never covers
+     any part of the artwork. */
+  .tile[data-filter="full-project"] .tile-caption{
+    position:static; background:none; padding:14px 4px 6px;
   }
-  .video-card video{width:100%; height:auto; max-height:520px; object-fit:contain; display:block; background:var(--ink);}
-  .video-card .video-label{
-    position:absolute; top:14px; left:14px; background:var(--ink); color:var(--cream);
-    font-size:11px; padding:5px 10px; border-radius:999px; font-weight:500; z-index:2;
-    pointer-events:none;
-  }
-
-  @media (max-width:860px){ .reel-grid{grid-template-columns:1fr;} }
 
   /* ============ TRAINING ============ */
   .training-list{display:flex; flex-direction:column;}
@@ -311,12 +326,6 @@
   .training-title{font-family:'Fraunces', serif; font-size:19px; font-weight:600;}
   .training-org{font-size:14px; color:rgba(33,3,19,0.6); margin-top:3px;}
   .training-date{font-size:13.5px; font-weight:600; color:var(--pink-deep); white-space:nowrap;}
-
-  .future-tags{display:flex; gap:12px; margin-top:36px; flex-wrap:wrap;}
-  .future-tag{
-    border:1.5px dashed var(--pink-deep); color:var(--pink-deep); font-size:13.5px; font-weight:500;
-    padding:10px 16px; border-radius:999px;
-  }
 
   /* ============ CONTACT / FOOTER ============ */
   footer{background:var(--ink); color:var(--cream); padding:100px 0 40px;}
@@ -343,25 +352,35 @@
 
   @media (max-width:640px){ .contact-links{grid-template-columns:1fr;} }
 
-  /* ============ LIGHTBOX MODAL ============ */
+  /* ============ PROJECT VIEWER (lightbox) ============ */
   .modal-overlay{
     position:fixed; inset:0; background:rgba(33,3,19,0.88); z-index:200;
-    display:flex; align-items:center; justify-content:center; padding:32px;
+    display:flex; align-items:flex-start; justify-content:center; padding:56px 32px;
     opacity:0; pointer-events:none; transition:opacity .25s ease;
+    overflow-y:auto;
   }
   .modal-overlay.open{opacity:1; pointer-events:auto;}
   .modal-box{
-    max-width:640px; width:100%; background:var(--cream); border-radius:16px;
+    max-width:1080px; width:100%; background:var(--cream); border-radius:16px;
     overflow:hidden; transform:scale(.95); transition:transform .25s ease;
+    margin:auto;
   }
   .modal-overlay.open .modal-box{transform:scale(1);}
-  .modal-box img{width:100%; height:auto; object-fit:contain; display:block;}
-  .modal-caption{padding:20px 24px;}
+  .modal-caption{padding:20px 24px; border-bottom:1px solid var(--line);}
   .modal-caption span{font-size:12px; color:var(--pink-deep); font-weight:600;}
   .modal-caption h4{font-size:20px; margin-top:4px;}
+  .modal-stack{display:flex; flex-direction:column; gap:3px;}
+  .modal-row{
+    display:flex; gap:3px;
+    opacity:0; transform:translateY(-24px);
+    transition:opacity .45s ease, transform .45s ease;
+  }
+  .modal-row.show{opacity:1; transform:translateY(0);}
+  .modal-row img{flex:1 1 0; min-width:0; width:100%; height:auto; display:block;}
   .modal-close{
-    position:absolute; top:24px; right:24px; width:40px; height:40px; border-radius:50%;
+    position:fixed; top:24px; right:24px; width:40px; height:40px; border-radius:50%;
     background:var(--cream); border:none; display:flex; align-items:center; justify-content:center;
+    z-index:201;
   }
 </style>
 </head>
@@ -376,7 +395,6 @@
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#skills">Skills</a>
-      <a href="#reel">Reel</a>
       <a href="#contact">Contact</a>
     </nav>
     <a href="#contact" class="nav-cta">Get in touch</a>
@@ -397,17 +415,10 @@
       <a href="#work" class="btn btn-solid">View my work</a>
       <a href="mailto:totaheram@gamil.com" class="btn btn-outline">Say hello</a>
     </div>
-    <div class="swatches" aria-hidden="true">
-      <div class="swatch" style="background:#ef2f7b"></div>
-      <div class="swatch" style="background:#8c1354"></div>
-      <div class="swatch" style="background:#ff8a5c"></div>
-      <div class="swatch" style="background:#ffdcea"></div>
-      <div class="swatch" style="background:#210313"></div>
-    </div>
   </div>
 
   <div class="hero-visual">
-    <img class="hero-photo" src="1785062941986.jpeg" alt="Tasbeeh Heram">
+    <img class="hero-photo" src="./1785062941986.jpeg" alt="Tasbeeh Heram">
     <div class="hero-tag"><strong>1.5+ yrs</strong>social &amp; brand design</div>
   </div>
 </section>
@@ -415,7 +426,7 @@
 <!-- ============ ABOUT ============ -->
 <section class="about" id="about">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head reveal in">
       <div>
         <span class="section-num">Profile</span>
         <h2>About Tasbeeh</h2>
@@ -439,7 +450,7 @@
 <!-- ============ EXPERIENCE ============ -->
 <section id="experience">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head reveal in">
       <div>
         <span class="section-num">Career</span>
         <h2>Experience</h2>
@@ -486,7 +497,7 @@
 <!-- ============ SKILLS ============ -->
 <section class="about" id="skills">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head reveal in">
       <div>
         <span class="section-num">Toolkit</span>
         <h2>Skills &amp; software</h2>
@@ -540,72 +551,154 @@
   </div>
 </section>
 
-<!-- ============ WORK GALLERY (photos) ============ -->
+<!-- ============ WORK GALLERY (filterable) ============ -->
 <section class="work" id="work">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head reveal in">
       <div>
         <span class="section-num">Selected work</span>
         <h2>Recent projects</h2>
       </div>
-      <p class="section-desc">Click any tile to preview a larger version.</p>
+      <p class="section-desc">Filter by category, then click any project to preview it.</p>
+    </div>
+
+    <div class="filter-tabs reveal in" id="filterTabs">
+      <button class="filter-btn active" data-filter="full-project">Full Projects</button>
+      <button class="filter-btn" data-filter="ai-character">AI Character</button>
+      <button class="filter-btn" data-filter="branding">Logo &amp; Brand Identity</button>
+      <button class="filter-btn" data-filter="social">Social Media Design</button>
+      <button class="filter-btn" data-filter="motion">Motion Videos</button>
+      <button class="filter-btn" data-filter="ai-video">AI Video Production</button>
     </div>
 
     <div class="gallery" id="gallery">
-      <div class="tile" data-title="Ahlan Korea — Social Media Plan" data-cat="Social Media">
-        <img src="2.jpg" alt="Ahlan Korea social media plan">
-        <div class="tile-caption"><span>Social Media</span>Ahlan Korea — Social Media Plan</div>
+      <!-- Full Projects: only Secret and Tijaraty. Cover image shows
+           outside as usual; clicking cascades the rest of the project. -->
+      <div class="tile" data-filter="full-project" data-title="Secret — Full Project" data-cat="Full Project" data-rows="[[&quot;full projects/secret/1.jpg&quot;], [&quot;full projects/secret/2.jpg&quot;], [&quot;full projects/secret/3.jpg&quot;], [&quot;full projects/secret/4.jpg&quot;], [&quot;full projects/secret/5.jpg&quot;], [&quot;full projects/secret/6.jpg&quot;], [&quot;full projects/secret/7.jpg&quot;], [&quot;full projects/secret/8.jpg&quot;], [&quot;full projects/secret/9.jpg&quot;], [&quot;full projects/secret/10.jpg&quot;], [&quot;full projects/secret/11.jpg&quot;], [&quot;full projects/secret/12.jpg&quot;], [&quot;full projects/secret/13.jpg&quot;], [&quot;full projects/secret/14.jpg&quot;], [&quot;full projects/secret/15.jpg&quot;], [&quot;full projects/secret/16.jpg&quot;], [&quot;full projects/secret/17.jpg&quot;], [&quot;full projects/secret/18.jpg&quot;], [&quot;full projects/secret/19.jpg&quot;], [&quot;full projects/secret/20.jpg&quot;], [&quot;full projects/secret/21.jpg&quot;], [&quot;full projects/secret/22.jpg&quot;], [&quot;full projects/secret/23.jpg&quot;], [&quot;full projects/secret/24.jpg&quot;], [&quot;full projects/secret/25.jpg&quot;], [&quot;full projects/secret/26.jpg&quot;], [&quot;full projects/secret/27.jpg&quot;], [&quot;full projects/secret/28.jpg&quot;], [&quot;full projects/secret/29.jpg&quot;], [&quot;full projects/secret/30.jpg&quot;], [&quot;full projects/secret/31.jpg&quot;], [&quot;full projects/secret/32.jpg&quot;], [&quot;full projects/secret/33.jpg&quot;], [&quot;full projects/secret/34.jpg&quot;], [&quot;full projects/secret/35.jpg&quot;], [&quot;full projects/secret/social media/1.jpg&quot;, &quot;full projects/secret/social media/2.jpg&quot;, &quot;full projects/secret/social media/3.jpg&quot;], [&quot;full projects/secret/social media/4.jpg&quot;, &quot;full projects/secret/social media/5.jpg&quot;, &quot;full projects/secret/social media/6.jpg&quot;], [&quot;full projects/secret/social media/7.jpg&quot;, &quot;full projects/secret/social media/8.jpg&quot;, &quot;full projects/secret/social media/9.jpg&quot;], [&quot;full projects/secret/39.jpg&quot;]]">
+        <img src="full projects/secret/1.jpg" alt="Secret — Full Project">
+        <div class="tile-caption"><span>Full Project</span>Secret — Full Project</div>
       </div>
-      <div class="tile" data-title="Dount — Brand Identity" data-cat="Branding">
-        <img src="Artboard 3.jpg" alt="Dount brand identity">
-        <div class="tile-caption"><span>Branding</span>Dount — Brand Identity</div>
-      </div>
-      <div class="tile" data-title="Secret — Social Media Plan" data-cat="Social Media">
-        <img src="3.jpg" alt="Secret social media plan">
-        <div class="tile-caption"><span>Social Media</span>Secret — Social Media Plan</div>
-      </div>
-      <div class="tile" data-title="Taby — Brand Identity" data-cat="Branding">
-        <img src="Artboard 4.jpg" alt="Taby brand identity">
-        <div class="tile-caption"><span>Branding</span>Taby — Brand Identity</div>
-      </div>
-      <div class="tile" data-title="Kedical — Social Media Plan" data-cat="Social Media">
-        <img src="تصميم بدون عنوان.jpg" alt="Kedical social media plan">
-        <div class="tile-caption"><span>Social Media</span>Kedical — Social Media Plan</div>
-      </div>
-      <div class="tile" data-title="Soknah — Brand Identity" data-cat="Branding">
-        <img src="Artboard 5.jpg" alt="Soknah brand identity">
-        <div class="tile-caption"><span>Branding</span>Soknah — Brand Identity</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ REEL (video) ============ -->
-<section id="reel">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div>
-        <span class="section-num">Motion</span>
-        <h2>Reel &amp; video work</h2>
-      </div>
-      <p class="section-desc">A few motion and AI-generated pieces from recent projects.</p>
-    </div>
-
-    <div class="reel-grid">
-      <div class="video-card" id="mainVideo">
-        <div class="video-label">Skip Ad Motion</div>
-        <video controls preload="metadata" src="(Bulk 1) 2Faqs - Tasbeh.mp4"></video>
+      <div class="tile" data-filter="full-project" data-title="Tijaraty — Full Project" data-cat="Full Project" data-rows="[[&quot;full projects/tijaraty/1.jpg&quot;], [&quot;full projects/tijaraty/2.jpg&quot;], [&quot;full projects/tijaraty/3.jpg&quot;], [&quot;full projects/tijaraty/4.jpg&quot;], [&quot;full projects/tijaraty/5.jpg&quot;], [&quot;full projects/tijaraty/6.jpg&quot;], [&quot;full projects/tijaraty/7.jpg&quot;], [&quot;full projects/tijaraty/8.jpg&quot;], [&quot;full projects/tijaraty/9.jpg&quot;], [&quot;full projects/tijaraty/10.jpg&quot;], [&quot;full projects/tijaraty/11.jpg&quot;], [&quot;full projects/tijaraty/12.jpg&quot;], [&quot;full projects/tijaraty/13.jpg&quot;], [&quot;full projects/tijaraty/14.jpg&quot;], [&quot;full projects/tijaraty/15.jpg&quot;], [&quot;full projects/tijaraty/16.jpg&quot;], [&quot;full projects/tijaraty/17.jpg&quot;], [&quot;full projects/tijaraty/18.jpg&quot;], [&quot;full projects/tijaraty/19.jpg&quot;], [&quot;full projects/tijaraty/20.jpg&quot;]]">
+        <img src="full projects/tijaraty/1.jpg" alt="Tijaraty — Full Project">
+        <div class="tile-caption"><span>Full Project</span>Tijaraty — Full Project</div>
       </div>
 
-      <div class="video-col">
-        <div class="video-card small">
-          <div class="video-label">CGI Video — AI Generation</div>
-          <video controls preload="metadata" src="3 final.mp4"></video>
-        </div>
-        <div class="video-card small">
-          <div class="video-label">AI Character</div>
-          <video controls preload="metadata" src="faroha 5.mp4"></video>
-        </div>
+      <!-- AI Character -->
+      <div class="tile" data-filter="ai-character" data-title="AI Character — Concept 1" data-cat="AI Character">
+        <img src="ai character/1.png" alt="AI Character — Concept 1">
+        <div class="tile-caption"><span>AI Character</span>AI Character — Concept 1</div>
+      </div>
+      <div class="tile" data-filter="ai-character" data-title="AI Character — Concept 2" data-cat="AI Character">
+        <img src="ai character/2.jpeg" alt="AI Character — Concept 2">
+        <div class="tile-caption"><span>AI Character</span>AI Character — Concept 2</div>
+      </div>
+      <div class="tile" data-filter="ai-character" data-title="AI Character — Concept 3" data-cat="AI Character">
+        <img src="ai character/3.jpeg" alt="AI Character — Concept 3">
+        <div class="tile-caption"><span>AI Character</span>AI Character — Concept 3</div>
+      </div>
+      <div class="tile" data-filter="ai-character" data-title="AI Character — Concept 4" data-cat="AI Character">
+        <img src="ai character/4.jpeg" alt="AI Character — Concept 4">
+        <div class="tile-caption"><span>AI Character</span>AI Character — Concept 4</div>
+      </div>
+      <div class="tile" data-filter="ai-character" data-title="AI Character — Concept 5" data-cat="AI Character">
+        <img src="ai character/5.jpeg" alt="AI Character — Concept 5">
+        <div class="tile-caption"><span>AI Character</span>AI Character — Concept 5</div>
+      </div>
+      <div class="tile" data-filter="ai-character" data-title="AI Character — Concept 6" data-cat="AI Character">
+        <img src="ai character/6.png" alt="AI Character — Concept 6">
+        <div class="tile-caption"><span>AI Character</span>AI Character — Concept 6</div>
+      </div>
+      <div class="tile tile-video" data-filter="ai-character" data-cat="AI Character">
+        <video controls="" preload="metadata" src="ai character/faroha 1.mp4"></video>
+        <div class="tile-caption"><span>AI Character</span>Faroha 1</div>
+      </div>
+      <div class="tile tile-video" data-filter="ai-character" data-cat="AI Character">
+        <video controls="" preload="metadata" src="ai character/faroha 2.mp4"></video>
+        <div class="tile-caption"><span>AI Character</span>Faroha 2</div>
+      </div>
+      <div class="tile tile-video" data-filter="ai-character" data-cat="AI Character">
+        <video controls="" preload="metadata" src="ai character/faroha 3.mp4"></video>
+        <div class="tile-caption"><span>AI Character</span>Faroha 3</div>
+      </div>
+      <div class="tile tile-video" data-filter="ai-character" data-cat="AI Character">
+        <video controls="" preload="metadata" src="ai character/faroha 4.mp4"></video>
+        <div class="tile-caption"><span>AI Character</span>Faroha 4</div>
+      </div>
+      <div class="tile tile-video" data-filter="ai-character" data-cat="AI Character">
+        <video controls="" preload="metadata" src="ai character/faroha 5.mp4"></video>
+        <div class="tile-caption"><span>AI Character</span>Faroha 5</div>
+      </div>
+      <div class="tile tile-video" data-filter="ai-character" data-cat="AI Character">
+        <video controls="" preload="metadata" src="ai character/faroha 6.mp4"></video>
+        <div class="tile-caption"><span>AI Character</span>Faroha 6</div>
+      </div>
+
+      <!-- Logo & Brand Identity -->
+      <div class="tile" data-filter="branding" data-title="Dountsaya — Brand Identity" data-cat="Logo &amp;amp; Brand Identity">
+        <img src="logos/1.jpg" alt="Dountsaya — Brand Identity">
+        <div class="tile-caption"><span>Logo &amp; Brand Identity</span>Dountsaya — Brand Identity</div>
+      </div>
+      <div class="tile" data-filter="branding" data-title="Taby — Brand Identity" data-cat="Logo &amp;amp; Brand Identity">
+        <img src="logos/2.jpg" alt="Taby — Brand Identity">
+        <div class="tile-caption"><span>Logo &amp; Brand Identity</span>Taby — Brand Identity</div>
+      </div>
+      <div class="tile" data-filter="branding" data-title="Soknh — Brand Identity" data-cat="Logo &amp;amp; Brand Identity">
+        <img src="logos/3.jpg" alt="Soknh — Brand Identity">
+        <div class="tile-caption"><span>Logo &amp; Brand Identity</span>Soknh — Brand Identity</div>
+      </div>
+
+      <!-- Social Media Design -->
+      <div class="tile" data-filter="social" data-title="Ahlan Korea — Social Media Plan" data-cat="Social Media Design">
+        <img src="social media/1.jpg" alt="Ahlan Korea — Social Media Plan">
+        <div class="tile-caption"><span>Social Media Design</span>Ahlan Korea — Social Media Plan</div>
+      </div>
+      <div class="tile" data-filter="social" data-title="Kedical — Social Media Plan" data-cat="Social Media Design">
+        <img src="social media/2.jpg" alt="Kedical — Social Media Plan">
+        <div class="tile-caption"><span>Social Media Design</span>Kedical — Social Media Plan</div>
+      </div>
+      <div class="tile" data-filter="social" data-title="Fiftella — Social Media Plan" data-cat="Social Media Design">
+        <img src="social media/3.jpg" alt="Fiftella — Social Media Plan">
+        <div class="tile-caption"><span>Social Media Design</span>Fiftella — Social Media Plan</div>
+      </div>
+      <div class="tile" data-filter="social" data-title="Fitverse — English — Social Media Plan" data-cat="Social Media Design">
+        <img src="social media/4.jpg" alt="Fitverse — English — Social Media Plan">
+        <div class="tile-caption"><span>Social Media Design</span>Fitverse — English — Social Media Plan</div>
+      </div>
+      <div class="tile" data-filter="social" data-title="Fitverse — Arabic — Social Media Plan" data-cat="Social Media Design">
+        <img src="social media/5.jpg" alt="Fitverse — Arabic — Social Media Plan">
+        <div class="tile-caption"><span>Social Media Design</span>Fitverse — Arabic — Social Media Plan</div>
+      </div>
+      <div class="tile" data-filter="social" data-title="Kedical — Social Media Plan" data-cat="Social Media Design">
+        <img src="social media/6.jpg" alt="Kedical — Social Media Plan">
+        <div class="tile-caption"><span>Social Media Design</span>Kedical — Social Media Plan</div>
+      </div>
+
+      <!-- Motion Videos -->
+      <div class="tile tile-video" data-filter="motion" data-cat="Motion Videos">
+        <video controls="" preload="metadata" src="motion/1.mp4"></video>
+        <div class="tile-caption"><span>Motion Videos</span>Motion Video 1</div>
+      </div>
+      <div class="tile tile-video" data-filter="motion" data-cat="Motion Videos">
+        <video controls="" preload="metadata" src="motion/2.mp4"></video>
+        <div class="tile-caption"><span>Motion Videos</span>Motion Video 2</div>
+      </div>
+      <div class="tile tile-video" data-filter="motion" data-cat="Motion Videos">
+        <video controls="" preload="metadata" src="motion/3.mp4"></video>
+        <div class="tile-caption"><span>Motion Videos</span>Motion Video 3</div>
+      </div>
+
+      <!-- AI Video Production -->
+      <div class="tile tile-video" data-filter="ai-video" data-cat="AI Video Production">
+        <video controls="" preload="metadata" src="ai/1.mp4"></video>
+        <div class="tile-caption"><span>AI Video Production</span>AI Video 1</div>
+      </div>
+      <div class="tile tile-video" data-filter="ai-video" data-cat="AI Video Production">
+        <video controls="" preload="metadata" src="ai/2.mp4"></video>
+        <div class="tile-caption"><span>AI Video Production</span>AI Video 2</div>
+      </div>
+      <div class="tile tile-video" data-filter="ai-video" data-cat="AI Video Production">
+        <video controls="" preload="metadata" src="ai/3.mp4"></video>
+        <div class="tile-caption"><span>AI Video Production</span>AI Video 3</div>
       </div>
     </div>
   </div>
@@ -655,11 +748,6 @@
         <div class="training-date">Expected 2027</div>
       </div>
     </div>
-
-    <div class="future-tags">
-      <span class="future-tag">Marketing Course — AUC · Planned</span>
-      <span class="future-tag">Branding Course — Adham Hossam · Starts mid-Sept 2026</span>
-    </div>
   </div>
 </section>
 
@@ -680,22 +768,22 @@
 
     <div class="footer-bottom">
       <span>Tasbeeh Heram — Graphic Designer, Egypt</span>
-      <span id="year"></span>
+      <span id="year">© 2026 Tasbeeh Heram</span>
     </div>
   </div>
 </footer>
 
-<!-- ============ LIGHTBOX MODAL ============ -->
+<!-- ============ PROJECT VIEWER ============ -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-box">
-    <img id="modalImg" src="" alt="">
     <div class="modal-caption">
       <span id="modalCat"></span>
       <h4 id="modalTitle"></h4>
     </div>
+    <div class="modal-stack" id="modalStack"></div>
   </div>
   <button class="modal-close" id="modalClose" aria-label="Close preview">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#210313" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#210313" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"></path></svg>
   </button>
 </div>
 
@@ -712,7 +800,7 @@
     burger.setAttribute('aria-expanded', false);
   }));
 
-  // ===== Scroll reveal for section headers (one subtle entrance each) =====
+  // ===== Scroll reveal for section headers =====
   const revealEls = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -724,25 +812,92 @@
   }, { threshold: 0.2 });
   revealEls.forEach(el => io.observe(el));
 
-  // ===== Gallery lightbox =====
+  // ===== Work gallery: category filtering =====
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const tiles = document.querySelectorAll('.tile');
+  const galleryEl = document.getElementById('gallery');
+  function applyFilter(filter){
+    tiles.forEach(tile => {
+      tile.style.display = tile.dataset.filter === filter ? '' : 'none';
+    });
+    // Full Projects show two large covers per row; every other
+    // category shows three per row.
+    galleryEl.classList.toggle('layout-full-project', filter === 'full-project');
+  }
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilter(btn.dataset.filter);
+    });
+  });
+  // Apply whichever tab is marked active on load, so the gallery
+  // starts filtered instead of showing every category at once.
+  const initialBtn = document.querySelector('.filter-btn.active') || filterBtns[0];
+  if (initialBtn) applyFilter(initialBtn.dataset.filter);
+
+  // ===== Project viewer =====
+  // Full Projects (Secret / Tijaraty): the cover shows outside as usual,
+  // clicking cascades the rest of that project's images row by row.
+  // Everything else is a single image: clicking just opens it bigger,
+  // instantly, with no cascade — a plain lightbox.
   const overlay = document.getElementById('modalOverlay');
-  const modalImg = document.getElementById('modalImg');
+  const modalStack = document.getElementById('modalStack');
   const modalTitle = document.getElementById('modalTitle');
   const modalCat = document.getElementById('modalCat');
   const modalClose = document.getElementById('modalClose');
 
-  document.querySelectorAll('.tile').forEach(tile => {
+  document.querySelectorAll('.tile:not(.tile-video)').forEach(tile => {
     tile.addEventListener('click', () => {
-      const img = tile.querySelector('img');
-      modalImg.src = img.src;
-      modalImg.alt = img.alt;
+      const coverImg = tile.querySelector('img');
+      const isFullProject = tile.dataset.filter === 'full-project';
+
+      let rows;
+      if (isFullProject) {
+        try {
+          rows = JSON.parse(tile.dataset.rows || '[]');
+        } catch (err) {
+          rows = [];
+        }
+        if (!Array.isArray(rows) || rows.length === 0) {
+          rows = [[coverImg.getAttribute('src')]];
+        }
+      } else {
+        // Just this one image, bigger — no cascade needed.
+        rows = [[coverImg.getAttribute('src')]];
+      }
+
+      modalStack.innerHTML = '';
       modalTitle.textContent = tile.dataset.title || '';
       modalCat.textContent = tile.dataset.cat || '';
+
+      rows.forEach((row, i) => {
+        const rowEl = document.createElement('div');
+        rowEl.className = 'modal-row';
+        row.forEach((src, j) => {
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = (tile.dataset.title || '') + ' — ' + (i + 1) + (row.length > 1 ? '.' + (j + 1) : '');
+          rowEl.appendChild(img);
+        });
+        modalStack.appendChild(rowEl);
+
+        if (isFullProject) {
+          const delay = 60 + Math.min(i, 16) * 130;
+          setTimeout(() => rowEl.classList.add('show'), delay);
+        } else {
+          rowEl.classList.add('show');
+        }
+      });
+
       overlay.classList.add('open');
     });
   });
 
-  function closeModal(){ overlay.classList.remove('open'); }
+  function closeModal(){
+    overlay.classList.remove('open');
+    setTimeout(() => { modalStack.innerHTML = ''; }, 250);
+  }
   modalClose.addEventListener('click', closeModal);
   overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
